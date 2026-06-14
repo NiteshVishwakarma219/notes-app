@@ -19,17 +19,12 @@ pipeline {
         }
 
         stage('Run Container') {
-            steps {
-                bat '''
-                docker stop notes-container || exit 0
-                docker rm notes-container || exit 0
-
-                docker run -d ^
-                --name notes-container ^
-                -p 3000:3000 ^
-                notes-app
-                '''
-            }
-        }
+    steps {
+        bat '''
+        docker rm -f notes-container
+        docker run -d --name notes-container -p 3000:3000 notes-app
+        '''
+    }
+}
     }
 }
